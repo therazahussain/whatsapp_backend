@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const token = process.env.TOKEN;
 
-router.get("/webbhook", (req, res) => {
+router.get("/webhook", (req, res) => {
   const verify_token = process.env.VERIFY_TOKEN;
 
   // Parse params from the webhook verification request
