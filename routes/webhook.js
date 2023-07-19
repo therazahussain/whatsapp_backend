@@ -16,16 +16,18 @@ router.get("/webhook", (req, res) => {
       console.log("WEBHOOK_VERIFIED");
       res.status(200).send(challenge);
     } else {
-      res.sendStatus(403);
+      res.sendStatus(404);
     }
   }
 });
 
 router.post("/webhook", (req, res) => {
   let body_param = req.body;
-  console.log(JSON.stringify(body_param, null, 2));
+
+  console.log("not heree");
 
   if (body_param.object) {
+    console.log("inside heree");
     if (
       body_param.entry &&
       body_param.entry[0].changes &&
@@ -37,27 +39,35 @@ router.post("/webhook", (req, res) => {
       let from = body_param.entry[0].changes[0].value.messages[0].from;
       let msg_body = body_param.entry[0].changes[0].value.messages[0].text.body;
 
+      console.log("inside heree");
+      console.log("inside heree");
+      console.log("inside heree");
+      console.log("inside heree");
+
       console.log(msg_body);
 
       axios({
-        method: 'POST',
-        url: 'https://graph.facebook.com/v14.0/'+phone_no_id+'/messages?access_token='+token,
-        data:{
-            messaging_product:"whatsapp",
-            to: from,
-            text:{
-                body:"Thank's A lot."
-            }
+        method: "POST",
+        url:
+          "https://graph.facebook.com/v14.0/" +
+          phone_no_id +
+          "/messages?access_token=" +
+          token,
+        data: {
+          messaging_product: "whatsapp",
+          to: from,
+          text: {
+            body: "Thank's A lot.",
+          },
         },
         headers: {
-            "Content-Type": "application/json"
-        }
-      })
+          "Content-Type": "application/json",
+        },
+      });
 
-      res.status(200).json({message:msg_body})
+      res.status(200).json({ message: msg_body });
     }
   }
 });
 
 module.exports = router;
-
