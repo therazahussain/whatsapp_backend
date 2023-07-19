@@ -21,7 +21,7 @@ router.get("/webbhook", (req, res) => {
   }
 });
 
-router.post("/webhook", (res, res) => {
+router.post("/webhook", (req, res) => {
   let body_param = req.body;
   console.log(JSON.stringify(body_param, null, 2));
 
@@ -53,6 +53,8 @@ router.post("/webhook", (res, res) => {
             "Content-Type": "application/json"
         }
       })
+
+      res.status(200).json({message:msg_body})
     }
   }
 });
